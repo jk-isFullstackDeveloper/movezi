@@ -73,8 +73,8 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white text-center py-2 mt-6 text-sm">
-        &copy; {new Date().getFullYear()} Movie Search App | Developed by Jitendra Kumar
+      <footer className="bg-gray-800 text-white text-center py-4 mt-6 text-sm">
+        &copy; {new Date().getFullYear()} Movie Search App | Developed by Jitendra Kumar | Contact +91 8340747194
       </footer>
 
       {/* Movie Details Modal */}
@@ -131,8 +131,6 @@ export default function App() {
             </button>
           </div>
         </div>
-
-
       )}
     </div>
   );
