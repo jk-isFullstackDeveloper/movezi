@@ -1,11 +1,7 @@
 import React from "react";
 import './index.css';
- 
-
-
 
 import { useState, useEffect } from "react";
-
 
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -83,20 +79,60 @@ export default function App() {
 
       {/* Movie Details Modal */}
       {selectedMovie && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4">
-          <div className="bg-white p-6 rounded-lg max-w-md shadow-lg">
-            <h2 className="text-xl font-bold mb-2">{selectedMovie.Title}</h2>
-            <p><strong>Year:</strong> {selectedMovie.Year}</p>
-            <p><strong>Actors:</strong> {selectedMovie.Actors}</p>
-            <p><strong>Plot:</strong> {selectedMovie.Plot}</p>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4 animate-fadeIn">
+          <div className="bg-white p-6 rounded-lg max-w-lg w-full shadow-lg relative">
+            {/* Close Button on Top Right */}
             <button
               onClick={() => setSelectedMovie(null)}
-              className="mt-4 bg-red-500 text-white px-4 py-3 rounded-lg hover:bg-red-600 transition"
+              className="absolute top-3 right-3 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-600 transition"
+            >
+              ✕
+            </button>
+
+            {/* Movie Details Container */}
+            <div className="flex flex-col md:flex-row items-center md:items-start">
+              {/* Movie Poster */}
+              <img
+                src={selectedMovie.Poster !== "N/A" ? selectedMovie.Poster : "https://via.placeholder.com/200"}
+                alt={selectedMovie.Title}
+                className="w-40 h-56 object-cover rounded-lg shadow-md"
+              />
+
+              {/* Movie Details */}
+              <div className="md:ml-6 text-center md:text-left mt-4 md:mt-0">
+                <h2 className="text-2xl font-bold text-gray-900">{selectedMovie.Title}</h2>
+                <p className="text-gray-600 text-sm italic">{selectedMovie.Genre}</p>
+                <div className="mt-3">
+                  <p className="text-gray-700">
+                    <span className="font-semibold">Year:</span> {selectedMovie.Year}
+                  </p>
+                  <p className="text-gray-700">
+                    <span className="font-semibold">Director:</span> {selectedMovie.Director}
+                  </p>
+                  <p className="text-gray-700">
+                    <span className="font-semibold">Actors:</span> {selectedMovie.Actors}
+                  </p>
+                  <p className="text-gray-700 mt-2 text-justify leading-relaxed">
+                    <span className="font-semibold">Plot:</span> {selectedMovie.Plot}
+                  </p>
+                  <p className="text-gray-700 mt-2">
+                    <span className="font-semibold">IMDb Rating:</span> ⭐ {selectedMovie.imdbRating}/10
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedMovie(null)}
+              className="mt-6 w-full bg-red-500 text-white px-4 py-3 rounded-lg hover:bg-red-600 transition"
             >
               Close
             </button>
           </div>
         </div>
+
+
       )}
     </div>
   );
