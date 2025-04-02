@@ -22,6 +22,7 @@ export default function App() {
   };
 
   const fetchMovieDetails = async (imdbID) => {
+    setSelectedMovie("open");
     const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=7a80609d`);
     const data = await response.json();
     setSelectedMovie(data);
@@ -86,6 +87,7 @@ export default function App() {
 
       {/* Movie Details Modal */}
       {selectedMovie && (
+
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4 animate-fadeIn">
           <div className="bg-white p-6 rounded-lg max-w-lg w-full shadow-lg relative">
             {/* Close Button on Top Right */}
@@ -97,37 +99,57 @@ export default function App() {
             </button>
 
             {/* Movie Details Container */}
-            <div className="flex flex-col md:flex-row items-center md:items-start">
-              {/* Movie Poster */}
-              <img
-                src={selectedMovie.Poster !== "N/A" ? selectedMovie.Poster : "https://via.placeholder.com/200"}
-                alt={selectedMovie.Title}
-                className="w-40 h-56 object-cover rounded-lg shadow-md"
-              />
+            {
+              selectedMovie === "open" ? <div className="flex flex-col md:flex-row items-center md:items-start animate-pulse">
+                {/* Movie Poster Skeleton */}
+                <div className="w-40 h-56 bg-gray-300 rounded-lg shadow-md"></div>
 
-              {/* Movie Details */}
-              <div className="md:ml-6 text-center md:text-left mt-4 md:mt-0">
-                <h2 className="text-2xl font-bold text-gray-900">{selectedMovie.Title}</h2>
-                <p className="text-gray-600 text-sm italic">{selectedMovie.Genre}</p>
-                <div className="mt-3">
-                  <p className="text-gray-700">
-                    <span className="font-semibold">Year:</span> {selectedMovie.Year}
-                  </p>
-                  <p className="text-gray-700">
-                    <span className="font-semibold">Director:</span> {selectedMovie.Director}
-                  </p>
-                  <p className="text-gray-700">
-                    <span className="font-semibold">Actors:</span> {selectedMovie.Actors}
-                  </p>
-                  <p className="text-gray-700 mt-2 text-justify leading-relaxed">
-                    <span className="font-semibold">Plot:</span> {selectedMovie.Plot}
-                  </p>
-                  <p className="text-gray-700 mt-2">
-                    <span className="font-semibold">IMDb Rating:</span> ⭐ {selectedMovie.imdbRating}/10
-                  </p>
+                {/* Movie Details Skeleton */}
+                <div className="md:ml-6 text-center md:text-left mt-4 md:mt-0 w-full">
+                  <div className="h-6 bg-gray-300 rounded w-3/4 mx-auto md:mx-0"></div>
+                  <div className="h-4 bg-gray-300 rounded w-1/2 mx-auto md:mx-0 mt-2"></div>
+                  <div className="mt-3 space-y-2">
+                    <div className="h-4 bg-gray-300 rounded w-1/2 mx-auto md:mx-0"></div>
+                    <div className="h-4 bg-gray-300 rounded w-2/3 mx-auto md:mx-0"></div>
+                    <div className="h-4 bg-gray-300 rounded w-3/4 mx-auto md:mx-0"></div>
+                    <div className="h-20 bg-gray-300 rounded w-full mt-2"></div>
+                    <div className="h-4 bg-gray-300 rounded w-1/3 mx-auto md:mx-0"></div>
+                  </div>
                 </div>
               </div>
-            </div>
+                : <div className="flex flex-col md:flex-row items-center md:items-start">
+                  {/* Movie Poster */}
+                  <img
+                    src={selectedMovie.Poster !== "N/A" ? selectedMovie.Poster : "https://via.placeholder.com/200"}
+                    alt={selectedMovie.Title}
+                    className="w-40 h-56 object-cover rounded-lg shadow-md"
+                  />
+
+                  {/* Movie Details */}
+                  <div className="md:ml-6 text-center md:text-left mt-4 md:mt-0">
+                    <h2 className="text-2xl font-bold text-gray-900">{selectedMovie.Title}</h2>
+                    <p className="text-gray-600 text-sm italic">{selectedMovie.Genre}</p>
+                    <div className="mt-3">
+                      <p className="text-gray-700">
+                        <span className="font-semibold">Year:</span> {selectedMovie.Year}
+                      </p>
+                      <p className="text-gray-700">
+                        <span className="font-semibold">Director:</span> {selectedMovie.Director}
+                      </p>
+                      <p className="text-gray-700">
+                        <span className="font-semibold">Actors:</span> {selectedMovie.Actors}
+                      </p>
+                      <p className="text-gray-700 mt-2 text-justify leading-relaxed">
+                        <span className="font-semibold">Plot:</span> {selectedMovie.Plot}
+                      </p>
+                      <p className="text-gray-700 mt-2">
+                        <span className="font-semibold">IMDb Rating:</span> ⭐ {selectedMovie.imdbRating}/10
+                      </p>
+                    </div>
+                  </div>
+                </div>
+            }
+
 
             {/* Close Button */}
             <button
