@@ -51,7 +51,7 @@ export default function App() {
             placeholder="Enter movie name..."
             className="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value?.trim())}
           />
           <button
             onClick={() => fetchMovies()}
