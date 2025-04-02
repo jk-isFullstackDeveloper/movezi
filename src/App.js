@@ -2,6 +2,7 @@ import React from "react";
 import './index.css';
 
 import { useState, useEffect } from "react";
+import Chat from "./chat/Chat";
 
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,6 +40,8 @@ export default function App() {
 
       </nav>
 
+      {/* <Chat/> */}
+
       {/* Main Content */}
       <main className="flex flex-col items-center justify-center flex-grow p-6">
         <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
@@ -59,16 +62,20 @@ export default function App() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 w-full max-w-5xl">
-          {movies.map((movie) => (
+          {movies.length > 0 ? movies.map((movie) => (
             <div
               key={movie.imdbID}
               className="bg-white shadow-md rounded-lg p-3 cursor-pointer transform hover:scale-105 transition"
               onClick={() => fetchMovieDetails(movie.imdbID)}
             >
-              <img src={movie.Poster} alt={movie.Title} className="w-full h-40 object-cover rounded-md" />
+              <img loading="lazy" src={movie.Poster} alt={movie.Title} className="w-full h-40 object-cover rounded-md" />
               <h3 className="text-sm font-semibold mt-2 text-center">{movie.Title} ({movie.Year})</h3>
             </div>
-          ))}
+          )) : [1, 3, 4, 5, 4, 5, 6, 4, 3, 4, 3].map(() => <><div className="bg-gray-50 shadow-md rounded-lg p-3 cursor-pointer transform hover:scale-105 transition animate-pulse">
+            <div className="w-full h-40 bg-gray-300 rounded-md"></div>
+            <h3 className="text-sm font-semibold mt-2 text-center bg-gray-300 h-4 w-3/4 mx-auto rounded"></h3>
+          </div></>)}
+
         </div>
       </main>
 
